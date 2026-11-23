@@ -20,6 +20,11 @@ from pathlib import Path
 
 JOKE = "I asked Dad why he loves the air fryer. 'It's just a little oven,' he said, 'with a really big fan club.'"
 
+# Fail fast if the joke itself ever grows past the gate: the file adds
+# exactly one trailing newline, so the joke must stay within 1-199 chars.
+if not 1 <= len(JOKE) <= 199:
+    raise SystemExit(f"FAIL: joke is {len(JOKE)} characters, outside 1-199")
+
 
 def main() -> None:
     output_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
